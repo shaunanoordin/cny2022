@@ -1,7 +1,7 @@
 {
-  "name": "avo-adventure-mk3",
+  "name": "cny2022",
   "version": "1.0.0",
-  "description": "AvO: Adventures Omnibus is a collection of small adventure games.",
+  "description": "Chinese New Year greeting card and mini video game for the Year of the Tiger. Gong Xi Fa Cai!",
   "main": "index.js",
   "scripts": {
     "start": "webpack && sass src:app && node server.js",
@@ -9,13 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/shaunanoordin/avo-adventure-mk3.git"
+    "url": "https://github.com/shaunanoordin/cny2022.git"
   },
   "author": "Shaun A. Noordin",
   "bugs": {
-    "url": "https://github.com/shaunanoordin/avo-adventure-mk3/issues"
+    "url": "https://github.com/shaunanoordin/cny2022/issues"
   },
-  "homepage": "https://github.com/shaunanoordin/avo-adventure-mk3#readme",
+  "homepage": "https://github.com/shaunanoordin/cny2022#readme",
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/plugin-proposal-optional-chaining": "^7.14.5",

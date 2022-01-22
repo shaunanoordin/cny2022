@@ -1,8 +1,9 @@
-# AvO: Adventures Omnibus
+# Chinese New Year 2022 - Year of the Tiger Card & Game
 
-AvO: Adventures Omnibus is a collection of small adventure games.
+This is a Chinese New Year greeting card and mini video game for the Year of the
+Tiger. Gong Xi Fa Cai, everyone!
 
-Original code was based on [an unfinished Ludum Dare 48 game](https://github.com/shaunanoordin/ludumdare-48), [CNY2021](https://github.com/shaunanoordin/cny2021), and [AvO mk2](https://github.com/shaunanoordin/avo-adventure-mk2/).
+Original code was based on [AvO Adventure Mk3](https://github.com/shaunanoordin/avo-adventure-mk3).
 
 Created by [Shaun A. Noordin](https://shaunanoordin.com).
 
