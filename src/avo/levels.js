@@ -36,7 +36,8 @@ export default class Levels {
     this.current = level
 
     this.reset()
-    this.generate_cny2022_default()
+    // this.generate_cny2022_default()
+    this.generate_cny2022_level_1()
   }
 
   reload () {
@@ -73,13 +74,33 @@ export default class Levels {
   generate_cny2022_default () {
     const app = this._app
 
-    const cat = new Cat(app, 11, 1)
-    const laserPointer = new LaserPointer(app, 2, 2)
+    const cat = new Cat(app, 2, 2)
+    const laserPointer = new LaserPointer(app, 22.5, 21)
     app.addRule(new CNY2022Controls(app, cat, laserPointer))
 
     app.atoms.push(cat)
     app.atoms.push(laserPointer)
 
+    this.createOuterWalls()
+  }
+
+  generate_cny2022_level_1 () {
+    const app = this._app
+
+    const cat = new Cat(app, 3, 13)
+    const laserPointer = new LaserPointer(app, 22.5, 21)
+    app.addRule(new CNY2022Controls(app, cat, laserPointer))
+
+    app.atoms.push(cat)
+    app.atoms.push(laserPointer)
+
+    app.atoms.push(new Wall(app, 15, 6, 16, 1))
+
+    this.createOuterWalls()
+  }
+
+  createOuterWalls () {
+    const app = this._app
     app.atoms.push(new Wall(app, 0, 0, CNY2022_COLS, 1))  // North Wall
     app.atoms.push(new Wall(app, 0, CNY2022_ROWS - 1, CNY2022_COLS, 1))  // South Wall
     app.atoms.push(new Wall(app, 0, 1, 1, CNY2022_ROWS - 2))  // West Wall

@@ -1,5 +1,6 @@
 import Rule from '@avo/rule'
 import { EXPECTED_TIMESTEP, PLAYER_ACTIONS } from '@avo/constants'
+import Physics from '@avo/physics'
 
 const MAX_PULSE = 1000
 
@@ -20,22 +21,106 @@ export default class CNY2022Controls extends Rule {
   play (timeStep) {
     const app = this._app
     super.play(timeStep)
-    this.updateLaser(timeStep)
-    this.pointerPointsToTarget(timeStep)
-    this.catChasesLaserDot(timeStep)
+    this.updateLaser()
+    this.pointerPointsToTarget()
+    this.catChasesLaserDot()
 
     this.pulseCounter = (timeStep + this.pulseCounter) % MAX_PULSE
   }
 
-  updateLaser (timeStep) {
+  /*
+  Perform calculations for drawing a laser from the pointer to the target
+   */
+  updateLaser () {
+    this.updateLaserTarget()
+    this.updateLaserDot()
+  }
+
+  /*
+  The target appears wherever the player clicks on the canvas.
+   */
+  updateLaserTarget () {
     const app = this._app
     if (app.playerAction === PLAYER_ACTIONS.POINTER_DOWN) {
-      this.laserDot = app.playerInput.pointerCurrent
       this.laserTarget = app.playerInput.pointerCurrent
+      // TODO: offset camera coordinates?
     }
   }
 
-  pointerPointsToTarget (timeStep) {
+  /*
+  The laser dot attempts to appear where the laser target is, but can be
+  interrupted by solid objects that appear between the target and the pointer.
+   */
+  updateLaserDot () {
+    const app = this._app
+
+    if (!this.laserTarget || !this.laserPointer) {
+      this.laserDot = null
+      return
+    }
+
+    // Intended line to the target.
+    const lineToTarget = {
+      start: {
+        x: this.laserPointer.x,
+        y: this.laserPointer.y,
+      },
+      end: {
+        x: this.laserTarget.x,
+        y: this.laserTarget.y,
+      }
+    }
+
+    // For each atom, see if it intersects with the line to the target
+    let closestIntersection = undefined
+    app.atoms.forEach(atom => {
+      if (atom === this.laserPointer || atom === this.cat) return
+
+      // TODO: check for opaqueness and/or if the atom is visible.
+
+      // Every atom has a "shape" that can be represented by a polygon.
+      // (Yes, even circles.) Check each segment (aka edge aka side) of the
+      // polygon.
+      const vertices = atom.vertices
+      if (vertices.length < 2) return
+      for (let i = 0 ; i < vertices.length ; i++) {
+        const segment = {
+          start: {
+            x: vertices[i].x,
+            y: vertices[i].y,
+          },
+          end: {
+            x: vertices[(i + 1) % vertices.length].x,
+            y: vertices[(i + 1) % vertices.length].y,
+          },
+        }
+
+        // Find the intersection point between the 'line to target' and the
+        // current polygon segment. We want to find the intersection point (if
+        // any) that's closest to the starting point of the 'line to target'.
+        const intersection = Physics.getLineIntersection(lineToTarget, segment)
+        if (!closestIntersection || (intersection && intersection.distanceFactor < closestIntersection.distanceFactor)) {
+          closestIntersection = intersection
+        }
+      }
+    })
+
+    // Place the laser dot! If there's an intersection (i.e. an object is
+    // blocking the 'line to target'), then the dot appears at the intersection.
+    // Otherwise, it appears at the target as intended.
+    this.laserDot = (closestIntersection) ? {
+      x: closestIntersection.x,
+      y: closestIntersection.y,
+    } : {
+      x: this.laserTarget.x,
+      y: this.laserTarget.y,
+    }
+  }
+
+  /*
+  Rotate the laser pointer to the laser target.
+   */
+  pointerPointsToTarget () {
     const laserPointer = this.laserPointer
     const laserTarget = this.laserTarget
     if (!laserPointer || !laserTarget) return
@@ -46,7 +131,10 @@ export default class CNY2022Controls extends Rule {
     laserPointer.rotation = angleToTarget
   }
 
-  catChasesLaserDot (timeStep) {
+  /*
+  The cat chases the laser dot.
+   */
+  catChasesLaserDot () {
     const laserDot = this.laserDot
     const cat = this.cat
 
@@ -75,6 +163,10 @@ export default class CNY2022Controls extends Rule {
     }
   }
 
+  /*
+  Paint the laser (line from laser pointer to the laser dot). The laser
+  represents what the cat actually chases.
+   */
   paintLaser () {
     if (!this.laserPointer || !this.laserDot) return
 
@@ -101,6 +193,9 @@ export default class CNY2022Controls extends Rule {
     c2d.fill()
   }
 
+  /*
+  Paint the laser target. This is where the player intends the laser to go.
+   */
   paintTarget () {
     if (!this.laserTarget) return
 
