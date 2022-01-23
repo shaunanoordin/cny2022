@@ -17,6 +17,7 @@ export default class CNY2022Controls extends Rule {
     const app = this._app
     super.play(timeStep)
     this.updateLaser(timeStep)
+    this.pointerPointsToTarget(timeStep)
     this.catChasesLaserDot(timeStep)
   }
 
@@ -28,26 +29,37 @@ export default class CNY2022Controls extends Rule {
     }
   }
 
+  pointerPointsToTarget (timeStep) {
+    const laserPointer = this.laserPointer
+    const laserTarget = this.laserTarget
+    if (!laserPointer || !laserTarget) return
+
+    const distX = laserTarget.x - laserPointer.x
+    const distY = laserTarget.y - laserPointer.y
+    const angleToTarget = Math.atan2(distY, distX)
+    laserPointer.rotation = angleToTarget
+  }
+
   catChasesLaserDot (timeStep) {
     const laserDot = this.laserDot
     const cat = this.cat
 
-    if (cat && laserDot) {
-      const camera = this._app.camera
-      const target = {
-        x: laserDot.x - camera.x,
-        y: laserDot.y - camera.y,
-      }
+    if (!cat || !laserDot) return
 
-      const distX = laserDot.x - cat.x
-      const distY = laserDot.y - cat.y
-      const angleToTarget = Math.atan2(distY, distX)
-      const ACCELERATION = 1
-
-      cat.rotation = angleToTarget
-      cat.pushX += ACCELERATION * Math.cos(angleToTarget)
-      cat.pushY += ACCELERATION * Math.sin(angleToTarget)
+    const camera = this._app.camera
+    const target = {
+      x: laserDot.x - camera.x,
+      y: laserDot.y - camera.y,
     }
+
+    const distX = laserDot.x - cat.x
+    const distY = laserDot.y - cat.y
+    const angleToTarget = Math.atan2(distY, distX)
+    const ACCELERATION = 1
+
+    cat.rotation = angleToTarget
+    cat.pushX += ACCELERATION * Math.cos(angleToTarget)
+    cat.pushY += ACCELERATION * Math.sin(angleToTarget)
   }
 
   paint (layer = 0) {
@@ -62,13 +74,23 @@ export default class CNY2022Controls extends Rule {
 
     const c2d = this._app.canvas2d
     const camera = this._app.camera
+    const laserPointer = this.laserPointer
     const laserDot = this.laserDot
-    const size = 16 + 4 * Math.random()
+
+    const laserSize = 2 + 2 * Math.random()
+    const dotSize = 16 + 4 * Math.random()
+
+    // Draw crosshair at mouse cursor
+    c2d.beginPath()
+    c2d.moveTo(laserPointer.x, laserPointer.y)
+    c2d.lineTo(laserDot.x, laserDot.y)
+    c2d.strokeStyle = 'rgba(255, 0, 0, 0.5)'
+    c2d.lineWidth = laserSize
+    c2d.stroke()
 
     c2d.fillStyle = '#f00'
-
     c2d.beginPath()
-    c2d.arc(laserDot.x + camera.x, laserDot.y + camera.y, size / 2, 0, 2 * Math.PI)
+    c2d.arc(laserDot.x + camera.x, laserDot.y + camera.y, dotSize / 2, 0, 2 * Math.PI)
     c2d.closePath()
     c2d.fill()
   }
@@ -95,7 +117,7 @@ export default class CNY2022Controls extends Rule {
     c2d.moveTo(crosshairX, crosshairTop)
     c2d.lineTo(crosshairX, crosshairBottom)
     c2d.strokeStyle = '#c88'
-    c2d.lineWidth = 3
+    c2d.lineWidth = 4
     c2d.stroke()
   }
 }
