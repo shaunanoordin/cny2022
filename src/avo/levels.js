@@ -1,4 +1,6 @@
-import { PLAYER_ACTIONS, DIRECTIONS } from '@avo/constants'
+import {
+  PLAYER_ACTIONS, DIRECTIONS, CNY2022_COLS, CNY2022_ROWS
+} from '@avo/constants'
 
 import Hero from '@avo/atom/types/hero'
 import Wall from '@avo/atom/types/wall'
@@ -31,7 +33,7 @@ export default class Levels {
     this.current = level
 
     this.reset()
-    this.generate_zelda_default()
+    this.generate_cny2022_default()
   }
 
   reload () {
@@ -63,5 +65,19 @@ export default class Levels {
     const enemy = new Enemy(app, 4, 8)
     enemy.rotation = -45 / 180 * Math.PI
     app.atoms.push(enemy)
+  }
+
+  generate_cny2022_default () {
+    const app = this._app
+
+    app.hero = new Hero(app, 11, 1)
+    app.atoms.push(app.hero)
+
+    app.addRule(new CNY2022Controls(app))
+
+    app.atoms.push(new Wall(app, 0, 0, CNY2022_COLS, 1))  // North Wall
+    app.atoms.push(new Wall(app, 0, CNY2022_ROWS - 1, CNY2022_COLS, 1))  // South Wall
+    app.atoms.push(new Wall(app, 0, 1, 1, CNY2022_ROWS - 2))  // West Wall
+    app.atoms.push(new Wall(app, CNY2022_COLS - 1, 1, 1, CNY2022_ROWS - 2))  // East Wall
   }
 }

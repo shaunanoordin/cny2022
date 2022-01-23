@@ -1,4 +1,6 @@
 export const TILE_SIZE = 64
+export const CNY2022_COLS = 48
+export const CNY2022_ROWS = 24
 
 export const ACCEPTABLE_INPUT_DISTANCE_FROM_HERO = TILE_SIZE * 2
 export const MAX_PULL_DISTANCE = TILE_SIZE * 6
