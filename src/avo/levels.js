@@ -8,6 +8,7 @@ import Ball from '@avo/atom/types/ball'
 import Enemy from '@avo/atom/types/enemy'
 
 import Cat from '@avo/atom/types/cny2022/cat'
+import LaserPointer from '@avo/atom/types/cny2022/laser-pointer'
 
 import ZeldaControls from '@avo/rule/types/zelda-controls'
 import CNY2022Controls from '@avo/rule/types/cny2022-controls'
@@ -72,10 +73,12 @@ export default class Levels {
   generate_cny2022_default () {
     const app = this._app
 
-    app.hero = new Cat(app, 11, 1)
-    app.atoms.push(app.hero)
+    const cat = new Cat(app, 11, 1)
+    const laserPointer = new LaserPointer(app, 2, 2)
+    app.addRule(new CNY2022Controls(app, cat, laserPointer))
 
-    app.addRule(new CNY2022Controls(app))
+    app.atoms.push(cat)
+    app.atoms.push(laserPointer)
 
     app.atoms.push(new Wall(app, 0, 0, CNY2022_COLS, 1))  // North Wall
     app.atoms.push(new Wall(app, 0, CNY2022_ROWS - 1, CNY2022_COLS, 1))  // South Wall
