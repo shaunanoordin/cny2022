@@ -1,9 +1,14 @@
-import { PLAYER_ACTIONS, DIRECTIONS } from '@avo/constants'
+import {
+  PLAYER_ACTIONS, DIRECTIONS, CNY2022_COLS, CNY2022_ROWS
+} from '@avo/constants'
 
 import Hero from '@avo/atom/types/hero'
 import Wall from '@avo/atom/types/wall'
 import Ball from '@avo/atom/types/ball'
 import Enemy from '@avo/atom/types/enemy'
+
+import Cat from '@avo/atom/types/cny2022/cat'
+import LaserPointer from '@avo/atom/types/cny2022/laser-pointer'
 
 import ZeldaControls from '@avo/rule/types/zelda-controls'
 import CNY2022Controls from '@avo/rule/types/cny2022-controls'
@@ -31,7 +36,8 @@ export default class Levels {
     this.current = level
 
     this.reset()
-    this.generate_zelda_default()
+    // this.generate_cny2022_default()
+    this.generate_cny2022_level_1()
   }
 
   reload () {
@@ -63,5 +69,41 @@ export default class Levels {
     const enemy = new Enemy(app, 4, 8)
     enemy.rotation = -45 / 180 * Math.PI
     app.atoms.push(enemy)
+  }
+
+  generate_cny2022_default () {
+    const app = this._app
+
+    const cat = new Cat(app, 2, 2)
+    const laserPointer = new LaserPointer(app, 22.5, 21)
+    app.addRule(new CNY2022Controls(app, cat, laserPointer))
+
+    app.atoms.push(cat)
+    app.atoms.push(laserPointer)
+
+    this.createOuterWalls()
+  }
+
+  generate_cny2022_level_1 () {
+    const app = this._app
+
+    const cat = new Cat(app, 3, 13)
+    const laserPointer = new LaserPointer(app, 22.5, 21)
+    app.addRule(new CNY2022Controls(app, cat, laserPointer))
+
+    app.atoms.push(cat)
+    app.atoms.push(laserPointer)
+
+    app.atoms.push(new Wall(app, 15, 6, 16, 1))
+
+    this.createOuterWalls()
+  }
+
+  createOuterWalls () {
+    const app = this._app
+    app.atoms.push(new Wall(app, 0, 0, CNY2022_COLS, 1))  // North Wall
+    app.atoms.push(new Wall(app, 0, CNY2022_ROWS - 1, CNY2022_COLS, 1))  // South Wall
+    app.atoms.push(new Wall(app, 0, 1, 1, CNY2022_ROWS - 2))  // West Wall
+    app.atoms.push(new Wall(app, CNY2022_COLS - 1, 1, 1, CNY2022_ROWS - 2))  // East Wall
   }
 }

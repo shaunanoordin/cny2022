@@ -320,7 +320,6 @@ export default class AvO {
     // ----------------
     if (
       this.playerAction === PLAYER_ACTIONS.POINTER_DOWN
-      && this.hero
       && this.playerInput.pointerCurrent
     ) {
 
@@ -330,13 +329,14 @@ export default class AvO {
       c2d.lineWidth = TILE_SIZE / 8
 
       c2d.beginPath()
-      c2d.arc(inputCoords.x, inputCoords.y, TILE_SIZE, 0, 2 * Math.PI)
+      c2d.arc(inputCoords.x, inputCoords.y, TILE_SIZE * 1.5, 0, 2 * Math.PI)
       c2d.stroke()
     }
     // ----------------
 
     // Draw UI data
     // ----------------
+    /*
     const X_OFFSET = TILE_SIZE * 2.5
     const Y_OFFSET = TILE_SIZE * -1.0
     c2d.font = '3em Source Code Pro'
@@ -360,6 +360,7 @@ export default class AvO {
     // ----------------
 
     this.paintLineOfSight()
+    */
   }
 
   /*
