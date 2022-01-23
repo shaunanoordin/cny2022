@@ -337,6 +337,7 @@ export default class AvO {
 
     // Draw UI data
     // ----------------
+    /*
     const X_OFFSET = TILE_SIZE * 2.5
     const Y_OFFSET = TILE_SIZE * -1.0
     c2d.font = '3em Source Code Pro'
@@ -360,6 +361,7 @@ export default class AvO {
     // ----------------
 
     this.paintLineOfSight()
+    */
   }
 
   /*

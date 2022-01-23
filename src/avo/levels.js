@@ -7,6 +7,8 @@ import Wall from '@avo/atom/types/wall'
 import Ball from '@avo/atom/types/ball'
 import Enemy from '@avo/atom/types/enemy'
 
+import Cat from '@avo/atom/types/cny2022/cat'
+
 import ZeldaControls from '@avo/rule/types/zelda-controls'
 import CNY2022Controls from '@avo/rule/types/cny2022-controls'
 
@@ -70,7 +72,7 @@ export default class Levels {
   generate_cny2022_default () {
     const app = this._app
 
-    app.hero = new Hero(app, 11, 1)
+    app.hero = new Cat(app, 11, 1)
     app.atoms.push(app.hero)
 
     app.addRule(new CNY2022Controls(app))
