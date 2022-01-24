@@ -9,6 +9,7 @@ import Enemy from '@avo/atom/types/enemy'
 
 import Cat from '@avo/atom/types/cny2022/cat'
 import LaserPointer from '@avo/atom/types/cny2022/laser-pointer'
+import Goal from '@avo/atom/types/cny2022/goal'
 
 import ZeldaControls from '@avo/rule/types/zelda-controls'
 import CNY2022Controls from '@avo/rule/types/cny2022-controls'
@@ -94,6 +95,7 @@ export default class Levels {
     app.addRule(new CNY2022Controls(app, cat, laserPointer))
 
     app.atoms.push(new Wall(app, 15, 6, 16, 1))
+    app.atoms.push(new Goal(app, CNY2022_COLS - 3, (CNY2022_ROWS - 1) / 2))
 
     this.createOuterWalls()
   }

@@ -1,5 +1,5 @@
 import Atom from '@avo/atom'
-import { PLAYER_ACTIONS, TILE_SIZE, EXPECTED_TIMESTEP } from '@avo/constants'
+import { TILE_SIZE } from '@avo/constants'
 
 export default class Cat extends Atom {
   constructor (app, col = 0, row = 0) {
