@@ -29,6 +29,7 @@ export default class Levels {
     }
     app.playerAction = PLAYER_ACTIONS.IDLE
     app.setInteractionMenu(false)
+    app.paused = false
   }
 
   load (level = 0) {
@@ -74,12 +75,11 @@ export default class Levels {
   generate_cny2022_default () {
     const app = this._app
 
-    const cat = new Cat(app, 2, 2)
-    const laserPointer = new LaserPointer(app, 22.5, 21)
-    app.addRule(new CNY2022Controls(app, cat, laserPointer))
-
+    const cat = new Cat(app, 3, 13)
+    const laserPointer = new LaserPointer(app, (CNY2022_COLS - 1) / 2, CNY2022_ROWS - 3)
     app.atoms.push(cat)
     app.atoms.push(laserPointer)
+    app.addRule(new CNY2022Controls(app, cat, laserPointer))
 
     this.createOuterWalls()
   }
@@ -87,12 +87,11 @@ export default class Levels {
   generate_cny2022_level_1 () {
     const app = this._app
 
-    const cat = new Cat(app, 3, 13)
-    const laserPointer = new LaserPointer(app, 22.5, 21)
-    app.addRule(new CNY2022Controls(app, cat, laserPointer))
-
+    const cat = new Cat(app, 3, (CNY2022_ROWS - 1) / 2)
+    const laserPointer = new LaserPointer(app, (CNY2022_COLS - 1) / 2, CNY2022_ROWS - 3)
     app.atoms.push(cat)
     app.atoms.push(laserPointer)
+    app.addRule(new CNY2022Controls(app, cat, laserPointer))
 
     app.atoms.push(new Wall(app, 15, 6, 16, 1))
 

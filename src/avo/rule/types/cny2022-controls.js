@@ -21,6 +21,9 @@ export default class CNY2022Controls extends Rule {
   play (timeStep) {
     const app = this._app
     super.play(timeStep)
+
+    if (app.paused) return
+
     this.updateLaser()
     this.pointerPointsToTarget()
     this.catChasesLaserDot()
