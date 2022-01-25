@@ -107,15 +107,26 @@ export default class Levels {
     app.atoms.push(new Goal(app, CNY2022_COLS - 3, (CNY2022_ROWS - 1) / 2))
 
     // Coins
-    app.atoms.push(new Coin(app, 12, 3))
-    app.atoms.push(new Coin(app, 15, 3))
-    app.atoms.push(new Coin(app, 18, 3))
-    app.atoms.push(new Coin(app, 21, 3))
-    app.atoms.push(new Coin(app, 24, 3))
-    app.atoms.push(new Coin(app, 27, 3))
+    app.atoms.push(new Coin(app, 11.5, 3))
+    app.atoms.push(new Coin(app, 15.5, 3))
+    app.atoms.push(new Coin(app, 19.5, 3))
+    app.atoms.push(new Coin(app, 23.5, 3))
+    app.atoms.push(new Coin(app, 27.5, 3))
 
-    // Vase
+    app.atoms.push(new Coin(app, 5.5, 14))
+    app.atoms.push(new Coin(app, 3.5, 15.5))
+    app.atoms.push(new Coin(app, 7.5, 15.5))
+    app.atoms.push(new Coin(app, 4.5, 17.5))
+    app.atoms.push(new Coin(app, 6.5, 17.5))
+
+    // Vases
+    app.atoms.push(new Vase(app, 11.5, 9.5))
+    app.atoms.push(new Vase(app, 15.5, 9.5))
     app.atoms.push(new Vase(app, 19.5, 9.5))
+    app.atoms.push(new Vase(app, 23.5, 9.5))
+    app.atoms.push(new Vase(app, 27.5, 9.5))
+
+
 
     this.createOuterWalls()
   }
