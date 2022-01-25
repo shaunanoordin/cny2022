@@ -80,6 +80,7 @@ export default class AvO {
 
     this.prevTime = null
     this.nextFrame = window.requestAnimationFrame(this.main.bind(this))
+    this.paused = false  // Pause gameplay
   }
 
   initialisationCheck () {
@@ -147,9 +148,11 @@ export default class AvO {
 
     // Run the action gameplay
     // ----------------
-    this.atoms.forEach(atom => atom.play(timeStep))
+    if (!this.paused) {
+      this.atoms.forEach(atom => atom.play(timeStep))
+      this.checkCollisions(timeStep)
+    }
     for (const id in this.rules) { this.rules[id].play(timeStep) }
-    this.checkCollisions(timeStep)
 
     // Cleanup
     this.atoms = this.atoms.filter(atom => !atom._expired)
@@ -159,9 +162,11 @@ export default class AvO {
     // ----------------
 
     // Increment the duration of each currently pressed key
-    Object.keys(this.playerInput.keysPressed).forEach(key => {
-      if (this.playerInput.keysPressed[key]) this.playerInput.keysPressed[key].duration += timeStep
-    })
+    if (!this.paused) {
+      Object.keys(this.playerInput.keysPressed).forEach(key => {
+        if (this.playerInput.keysPressed[key]) this.playerInput.keysPressed[key].duration += timeStep
+      })
+    }
   }
 
   /*
@@ -310,7 +315,7 @@ export default class AvO {
     // Draw atoms and other elements
     // ----------------
     const MAX_LAYER = 2
-    for (let layer = 0 ; layer < MAX_LAYER ; layer++) {
+    for (let layer = 0 ; layer <= MAX_LAYER ; layer++) {
       this.atoms.forEach(atom => atom.paint(layer))
       for (const id in this.rules) { this.rules[id].paint(layer) }
     }

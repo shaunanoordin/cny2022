@@ -4,6 +4,13 @@ import Physics from '@avo/physics'
 
 const MAX_PULSE = 1000
 
+/*
+This Rule manages how the player interacts with the gameplay.
+- A player can tap on the canvas to TARGET the laser pointer.
+- The laser POINTER shoots a laser beam, which terminates with a laser DOT.
+- The laser beam can be blocked by solid objects.
+- The Cat will chase the laser dot.
+ */
 export default class CNY2022Controls extends Rule {
   constructor (app, cat, laserPointer) {
     super(app)
@@ -21,6 +28,9 @@ export default class CNY2022Controls extends Rule {
   play (timeStep) {
     const app = this._app
     super.play(timeStep)
+
+    if (app.paused) return
+
     this.updateLaser()
     this.pointerPointsToTarget()
     this.catChasesLaserDot()
@@ -74,9 +84,12 @@ export default class CNY2022Controls extends Rule {
     // For each atom, see if it intersects with the line to the target
     let closestIntersection = undefined
     app.atoms.forEach(atom => {
+
+      // Ignore
       if (atom === this.laserPointer || atom === this.cat) return
 
-      // TODO: check for opaqueness and/or if the atom is visible.
+      // Ignore transparent objects
+      if (!atom.solid || atom.transparent) return
 
       // Every atom has a "shape" that can be represented by a polygon.
       // (Yes, even circles.) Check each segment (aka edge aka side) of the

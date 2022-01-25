@@ -1,6 +1,11 @@
 import Atom from '@avo/atom'
-import { PLAYER_ACTIONS, TILE_SIZE, EXPECTED_TIMESTEP } from '@avo/constants'
+import { TILE_SIZE } from '@avo/constants'
 
+/*
+The Cat is the main character of the game, but the player doesn't control them
+directly. Instead, the Cat wildly chases the laser pointer, causing chaos in
+their wake.
+ */
 export default class Cat extends Atom {
   constructor (app, col = 0, row = 0) {
     super(app)
