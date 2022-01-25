@@ -6,7 +6,7 @@ export default class LaserPointer extends Atom {
     super(app)
     this._type = 'cny2022-laser-pointer'
 
-    this.colour = '#ca4'
+    this.colour = '#c84'
     this.x = col * TILE_SIZE + TILE_SIZE / 2
     this.y = row * TILE_SIZE + TILE_SIZE / 2
   }

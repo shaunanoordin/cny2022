@@ -10,6 +10,7 @@ import Enemy from '@avo/atom/types/enemy'
 import Cat from '@avo/atom/types/cny2022/cat'
 import LaserPointer from '@avo/atom/types/cny2022/laser-pointer'
 import Goal from '@avo/atom/types/cny2022/goal'
+import Coin from '@avo/atom/types/cny2022/coin'
 
 import ZeldaControls from '@avo/rule/types/zelda-controls'
 import CNY2022Controls from '@avo/rule/types/cny2022-controls'
@@ -96,8 +97,15 @@ export default class Levels {
     app.addRule(new CNY2022Controls(app, cat, laserPointer))
     app.addRule(new CNY2022Victory(app))
 
-    app.atoms.push(new Wall(app, 15, 6, 16, 1))
+    app.atoms.push(new Wall(app, 11, 6, 18, 1))
     app.atoms.push(new Goal(app, CNY2022_COLS - 3, (CNY2022_ROWS - 1) / 2))
+
+    app.atoms.push(new Coin(app, 12, 3))
+    app.atoms.push(new Coin(app, 15, 3))
+    app.atoms.push(new Coin(app, 18, 3))
+    app.atoms.push(new Coin(app, 21, 3))
+    app.atoms.push(new Coin(app, 24, 3))
+    app.atoms.push(new Coin(app, 27, 3))
 
     this.createOuterWalls()
   }

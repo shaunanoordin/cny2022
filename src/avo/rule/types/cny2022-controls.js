@@ -89,7 +89,7 @@ export default class CNY2022Controls extends Rule {
       if (atom === this.laserPointer || atom === this.cat) return
 
       // Ignore transparent objects
-      if (!atom.solid) return
+      if (!atom.solid || atom.transparent) return
 
       // Every atom has a "shape" that can be represented by a polygon.
       // (Yes, even circles.) Check each segment (aka edge aka side) of the
