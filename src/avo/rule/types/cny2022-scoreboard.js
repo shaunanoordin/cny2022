@@ -1,0 +1,49 @@
+import Rule from '@avo/rule'
+
+export default class CNY2022Scoreboard extends Rule {
+  constructor (app) {
+    super(app)
+    this._type = 'cny2022-scoreboard'
+
+    this.score = 0
+  }
+
+  /*
+  Paint the victory screen, if the player has won the level
+   */
+  paint (layer = 0) {
+    if (layer !== 2) return
+
+    const app = this._app
+    const c2d = this._app.canvas2d
+
+    const TEXT = 'YOU DID IT!'
+    const TEXT_X = app.canvasWidth / 2
+    const TEXT_Y = app.canvasHeight / 2
+    const TEXT_SIZE_START = 5
+    const TEXT_SIZE_END = 10
+
+    // Paint victory text
+    const progress = Math.min(this.victoryCounter / VICTORY_COUNTER_MAX, 1)  // returns 0.0 to 1.0
+    const smoothedProgress = simpleEaseOut(progress)
+    const textSize = (smoothedProgress * (TEXT_SIZE_END - TEXT_SIZE_START) + TEXT_SIZE_START).toFixed(2)
+    c2d.font = `${textSize}em Source Code Pro`
+    c2d.textAlign = 'center'
+    c2d.textBaseline = 'middle'
+    c2d.lineWidth = 8
+    c2d.strokeStyle = '#fff'
+    c2d.strokeText(TEXT, TEXT_X, TEXT_Y)
+    c2d.fillStyle = '#c44'
+    c2d.fillText(TEXT, TEXT_X, TEXT_Y)
+  }
+
+  /*
+  Triggers the victory for the level. Usually called by Goal Atom.
+   */
+  triggerVictory () {
+    if (this.victory) return  // Don't trigger more than once
+
+    const app = this._app
+    this.victory = true
+  }
+}
