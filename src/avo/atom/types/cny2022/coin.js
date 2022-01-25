@@ -1,5 +1,8 @@
 import Atom from '@avo/atom'
 import { TILE_SIZE } from '@avo/constants'
+import { easeOut } from '@avo/misc'
+
+const DECAY_MAX = 200
 
 /*
 Coins, when picked up by the Cat, increase the player's score.
@@ -19,6 +22,27 @@ export default class Coin extends Atom {
     this.transparent = true
 
     this.pickedUp = false
+    this.decayCounter = 0
+  }
+
+  play (timeStep) {
+    super.play(timeStep)
+
+    // If the coin is picked up, begin the decay process
+    if (this.pickedUp) {
+      this.decayCounter = Math.min(this.decayCounter + timeStep, DECAY_MAX)
+      if (this.decayCounter >= DECAY_MAX) this._expired = true
+      return
+    }
+  }
+
+  paint (layer = 0) {
+    if (this.pickedUp) {
+      const progress = easeOut(this.decayCounter / DECAY_MAX)
+      const c = 128 + progress * 128
+      this.colour = `rgba(${c}, ${c}, ${c}, 1)`
+    }
+    super.paint(layer)
   }
 
   onCollision (target, collisionCorrection) {
@@ -34,7 +58,6 @@ export default class Coin extends Atom {
 
     if (target === cny2022.cat) {
       this.pickedUp = true
-      this._expired = true
       victory.score ++
     }
 

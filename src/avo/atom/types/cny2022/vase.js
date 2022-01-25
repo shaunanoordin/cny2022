@@ -1,8 +1,9 @@
 import Atom from '@avo/atom'
 import { TILE_SIZE, EXPECTED_TIMESTEP } from '@avo/constants'
+import { easeOut } from '@avo/misc'
 
 const FRAGILITY = 0.5
-const BREAKING_MAX = 1000
+const DECAY_MAX = 500
 
 export default class Vase extends Atom {
   constructor (app, col = 0, row = 0) {
@@ -19,7 +20,7 @@ export default class Vase extends Atom {
     this.prevPushY = 0
 
     this.broken = false
-    this.breakingCounter = 0
+    this.decayCounter = 0
   }
 
   play (timeStep) {
@@ -27,8 +28,8 @@ export default class Vase extends Atom {
 
     // If the object is broken, begin the decay process
     if (this.broken) {
-      this.breakingCounter = Math.min(this.breakingCounter + timeStep, BREAKING_MAX)
-      if (this.victoryCounter >= VICTORY_COUNTER_MAX) this._expired = true
+      this.decayCounter = Math.min(this.decayCounter + timeStep, DECAY_MAX)
+      if (this.decayCounter >= DECAY_MAX) this._expired = true
       return
     }
 
@@ -49,9 +50,10 @@ export default class Vase extends Atom {
 
   paint (layer = 0) {
     if (this.broken) {
-      progress
+      const progress = easeOut(this.decayCounter / DECAY_MAX)
+      const c = 128 - progress * 128
+      this.colour = `rgba(${c}, ${c}, ${c}, 1)`
     }
-
     super.paint(layer)
   }
 
@@ -61,7 +63,5 @@ export default class Vase extends Atom {
 
     const victory = this._app.rules['cny2022-victory']
     if (victory) victory.score --
-
-    this._expired = true
   }
 }
