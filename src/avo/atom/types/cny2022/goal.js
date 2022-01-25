@@ -1,6 +1,9 @@
 import Atom from '@avo/atom'
 import { TILE_SIZE } from '@avo/constants'
 
+/*
+When the Cat touches the Goal, the level is complete.
+ */
 export default class Goal extends Atom {
   constructor (app, col = 0, row = 0) {
     super(app)

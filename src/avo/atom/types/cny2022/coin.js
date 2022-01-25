@@ -1,6 +1,9 @@
 import Atom from '@avo/atom'
 import { TILE_SIZE } from '@avo/constants'
 
+/*
+Coins, when picked up by the Cat, increases the player's score.
+ */
 export default class Coin extends Atom {
   constructor (app, col = 0, row = 0) {
     super(app)

@@ -1,6 +1,9 @@
 import Atom from '@avo/atom'
 import { PLAYER_ACTIONS, TILE_SIZE, EXPECTED_TIMESTEP } from '@avo/constants'
 
+/*
+The Laser Pointer is the origin of the laser beam.
+ */
 export default class LaserPointer extends Atom {
   constructor (app, col = 0, row = 0) {
     super(app)
