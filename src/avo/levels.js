@@ -13,6 +13,7 @@ import Goal from '@avo/atom/types/cny2022/goal'
 
 import ZeldaControls from '@avo/rule/types/zelda-controls'
 import CNY2022Controls from '@avo/rule/types/cny2022-controls'
+import CNY2022Victory from '@avo/rule/types/cny2022-victory'
 
 export default class Levels {
   constructor (app) {
@@ -93,6 +94,7 @@ export default class Levels {
     app.atoms.push(cat)
     app.atoms.push(laserPointer)
     app.addRule(new CNY2022Controls(app, cat, laserPointer))
+    app.addRule(new CNY2022Victory(app))
 
     app.atoms.push(new Wall(app, 15, 6, 16, 1))
     app.atoms.push(new Goal(app, CNY2022_COLS - 3, (CNY2022_ROWS - 1) / 2))

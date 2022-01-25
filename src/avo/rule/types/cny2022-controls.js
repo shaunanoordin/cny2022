@@ -77,9 +77,12 @@ export default class CNY2022Controls extends Rule {
     // For each atom, see if it intersects with the line to the target
     let closestIntersection = undefined
     app.atoms.forEach(atom => {
+
+      // Ignore
       if (atom === this.laserPointer || atom === this.cat) return
 
-      // TODO: check for opaqueness and/or if the atom is visible.
+      // Ignore transparent objects
+      if (!atom.solid) return
 
       // Every atom has a "shape" that can be represented by a polygon.
       // (Yes, even circles.) Check each segment (aka edge aka side) of the

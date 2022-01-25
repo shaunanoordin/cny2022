@@ -20,10 +20,10 @@ export default class Goal extends Atom {
 
     const app = this._app
     const cny2022 = app.rules['cny2022-controls']
-    if (!cny2022) return
+    const victory = app.rules['cny2022-victory']
 
-    if (target === cny2022.cat) {
-      app.paused = true
-    }
+    if (!cny2022 || !victory) return
+
+    if (target === cny2022.cat) victory.triggerVictory()
   }
 }

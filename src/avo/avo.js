@@ -315,7 +315,7 @@ export default class AvO {
     // Draw atoms and other elements
     // ----------------
     const MAX_LAYER = 2
-    for (let layer = 0 ; layer < MAX_LAYER ; layer++) {
+    for (let layer = 0 ; layer <= MAX_LAYER ; layer++) {
       this.atoms.forEach(atom => atom.paint(layer))
       for (const id in this.rules) { this.rules[id].paint(layer) }
     }
