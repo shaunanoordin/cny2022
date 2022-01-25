@@ -5,11 +5,11 @@ import Physics from '@avo/physics'
 const MAX_PULSE = 1000
 
 /*
-This Rule takes care of
+This Rule manages how the player interacts with the gameplay.
 - A player can tap on the canvas to TARGET the laser pointer.
 - The laser POINTER shoots a laser beam, which terminates with a laser DOT.
 - The laser beam can be blocked by solid objects.
-- The cat will chase the laser dot.
+- The Cat will chase the laser dot.
  */
 export default class CNY2022Controls extends Rule {
   constructor (app, cat, laserPointer) {
