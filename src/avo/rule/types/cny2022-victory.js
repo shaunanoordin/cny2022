@@ -18,14 +18,11 @@ function simpleEaseInOut (x = 0) {
 }
 
 export default class CNY2022Victory extends Rule {
-  constructor (app, totalCoins = 0, totalBreakables = 0) {
+  constructor (app) {
     super(app)
     this._type = 'cny2022-victory'
 
-    this.totalCoins = totalCoins
-    this.totalBreakables = totalBreakables
-
-    this.victory = false
+    this.victory = false  // bool: has the player finished the level?
     this.victoryCounter = 0
   }
 
@@ -40,6 +37,9 @@ export default class CNY2022Victory extends Rule {
     }
   }
 
+  /*
+  Paint the victory screen, if the player has won the level
+   */
   paint (layer = 0) {
     if (layer !== 2) return
     if (!this.victory) return
@@ -53,6 +53,7 @@ export default class CNY2022Victory extends Rule {
     const TEXT_SIZE_START = 5
     const TEXT_SIZE_END = 10
 
+    // Paint victory text
     const progress = Math.min(this.victoryCounter / VICTORY_COUNTER_MAX, 1)  // returns 0.0 to 1.0
     const smoothedProgress = simpleEaseOut(progress)
     const textSize = (smoothedProgress * (TEXT_SIZE_END - TEXT_SIZE_START) + TEXT_SIZE_START).toFixed(2)
@@ -66,6 +67,9 @@ export default class CNY2022Victory extends Rule {
     c2d.fillText(TEXT, TEXT_X, TEXT_Y)
   }
 
+  /*
+  Triggers the victory for the level. Usually called by Goal Atom.
+   */
   triggerVictory () {
     if (this.victory) return  // Don't trigger more than once
 
