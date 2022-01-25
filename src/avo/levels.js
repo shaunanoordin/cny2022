@@ -11,6 +11,7 @@ import Cat from '@avo/atom/types/cny2022/cat'
 import LaserPointer from '@avo/atom/types/cny2022/laser-pointer'
 import Goal from '@avo/atom/types/cny2022/goal'
 import Coin from '@avo/atom/types/cny2022/coin'
+import Vase from '@avo/atom/types/cny2022/vase'
 import GlassWall from '@avo/atom/types/cny2022/glass-wall'
 
 import ZeldaControls from '@avo/rule/types/zelda-controls'
@@ -112,6 +113,9 @@ export default class Levels {
     app.atoms.push(new Coin(app, 21, 3))
     app.atoms.push(new Coin(app, 24, 3))
     app.atoms.push(new Coin(app, 27, 3))
+
+    // Vase
+    app.atoms.push(new Vase(app, 19.5, 9.5))
 
     this.createOuterWalls()
   }

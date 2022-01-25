@@ -6,7 +6,7 @@ const VICTORY_COUNTER_MAX = 500
 /*
 This Rule keeps track of scores and the victory condition.
 - If the Cat touches a Coin, the score will increase.
-- If a piece of Furniture is broken, the score will decrease.
+- If a Vase is broken, the score will decrease.
 - If the Cat touches the Goal, the player wins the level.
 - If the player has won the level, play the victory message.
 - The player should always be able to see their score
