@@ -1,5 +1,6 @@
 import Rule from '@avo/rule'
 import { TILE_SIZE } from '@avo/constants'
+import { easeOut } from '@avo/misc'
 
 const VICTORY_COUNTER_MAX = 500
 
@@ -44,7 +45,6 @@ export default class CNY2022Victory extends Rule {
     const app = this._app
     const c2d = this._app.canvas2d
 
-
     // Victory message
     if (this.victory) {
       const VICTORY_TEXT = 'YOU DID IT!'
@@ -55,7 +55,7 @@ export default class CNY2022Victory extends Rule {
 
       // Paint victory text
       const progress = Math.min(this.victoryCounter / VICTORY_COUNTER_MAX, 1)  // returns 0.0 to 1.0
-      const smoothedProgress = simpleEaseOut(progress)
+      const smoothedProgress = easeOut(progress)
       const textSize = (smoothedProgress * (VICTORY_SIZE_END - VICTORY_SIZE_START) + VICTORY_SIZE_START).toFixed(2)
       const blockOpacity = smoothedProgress * 0.5
 
@@ -96,19 +96,4 @@ export default class CNY2022Victory extends Rule {
     const app = this._app
     this.victory = true
   }
-}
-
-function simpleEaseOut (x = 0) {
-  const y = Math.min(Math.max(x, 0), 1)
-  return y * (2 - y)
-}
-
-function simpleEaseIn (x = 0) {
-  const y = Math.min(Math.max(x, 0), 1)
-  return y * y
-}
-
-function simpleEaseInOut (x = 0) {
-  const y = Math.min(Math.max(x, 0), 1)
-  return y * y * (3 - 2 * y)
 }
