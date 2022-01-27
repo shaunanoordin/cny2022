@@ -53,8 +53,9 @@ export default class AvO {
 
     this.initialised = false
     this.assets = {
-      "exampleImage": new ImageAsset('assets/simple-bg.png'),
-      "exampleJson": new JsonAsset('assets/example.json'),
+      // "exampleImage": new ImageAsset('assets/simple-bg.png'),
+      // "exampleJson": new JsonAsset('assets/example.json'),
+      'cny2022':  new ImageAsset('assets/cny2022-sprites.png'),
     }
     this.secretAssets = {
       // "secretImage": new ImageAsset('secrets/simple-bg.png'),
