@@ -120,13 +120,11 @@ export default class Levels {
     app.atoms.push(new Coin(app, 6.5, 17.5))
 
     // Vases
-    app.atoms.push(new Vase(app, 11.5, 9.5))
-    app.atoms.push(new Vase(app, 15.5, 9.5))
+    app.atoms.push(new Vase(app, 13.5, 9.5))
+    app.atoms.push(new Vase(app, 16.5, 9.5))
     app.atoms.push(new Vase(app, 19.5, 9.5))
-    app.atoms.push(new Vase(app, 23.5, 9.5))
-    app.atoms.push(new Vase(app, 27.5, 9.5))
-
-
+    app.atoms.push(new Vase(app, 22.5, 9.5))
+    app.atoms.push(new Vase(app, 25.5, 9.5))
 
     this.createOuterWalls()
   }

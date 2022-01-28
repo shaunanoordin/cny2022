@@ -170,7 +170,7 @@ export default class CNY2022Controls extends Rule {
   }
 
   paint (layer = 0) {
-    if (layer === 1) {
+    if (layer === 2) {
       this.paintLaser()
       this.paintTarget()
     }
