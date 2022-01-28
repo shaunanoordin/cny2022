@@ -55,8 +55,7 @@ export default class AvO {
     this.assets = {
       // "exampleImage": new ImageAsset('assets/simple-bg.png'),
       // "exampleJson": new JsonAsset('assets/example.json'),
-      'cat':  new ImageAsset('assets/cat.png'),
-      'coin':  new ImageAsset('assets/coin.png'),
+      'cny2022':  new ImageAsset('assets/cny2022-sprites.png'),
     }
     this.secretAssets = {
       // "secretImage": new ImageAsset('secrets/simple-bg.png'),
@@ -316,7 +315,7 @@ export default class AvO {
 
     // Draw atoms and other elements
     // ----------------
-    const MAX_LAYER = 2
+    const MAX_LAYER = 3
     for (let layer = 0 ; layer <= MAX_LAYER ; layer++) {
       this.atoms.forEach(atom => atom.paint(layer))
       for (const id in this.rules) { this.rules[id].paint(layer) }

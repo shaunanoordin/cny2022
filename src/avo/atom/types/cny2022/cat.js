@@ -33,7 +33,7 @@ export default class Cat extends Atom {
 
     const c2d = this._app.canvas2d
     const camera = this._app.camera
-    const animationSpritesheet = this._app.assets.cat
+    const animationSpritesheet = this._app.assets.cny2022
 
     if (layer === 0) {
       c2d.fillStyle = this.colour

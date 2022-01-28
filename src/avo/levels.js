@@ -126,8 +126,6 @@ export default class Levels {
     app.atoms.push(new Vase(app, 23.5, 9.5))
     app.atoms.push(new Vase(app, 27.5, 9.5))
 
-
-
     this.createOuterWalls()
   }
 

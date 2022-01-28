@@ -44,18 +44,18 @@ export default class Coin extends Atom {
 
     const c2d = this._app.canvas2d
     const camera = this._app.camera
-    const animationSpritesheet = this._app.assets.coin
+    const animationSpritesheet = this._app.assets.cny2022
 
     if (layer === 1) {
       if (!animationSpritesheet) return
 
-      const SPRITE_SIZE = 64
+      const SPRITE_SIZE = 96
       let SPRITE_OFFSET_X = 0
-      let SPRITE_OFFSET_Y = -8
+      let SPRITE_OFFSET_Y = 0
 
       const srcSizeX = SPRITE_SIZE
       const srcSizeY = SPRITE_SIZE
-      let srcX = 0
+      let srcX = SPRITE_SIZE * 2
       let srcY = 0
 
       const tgtSizeX = SPRITE_SIZE * 1
@@ -73,7 +73,7 @@ export default class Coin extends Atom {
         else if (progress < 0.75) srcY = SPRITE_SIZE * 2
         else srcY = SPRITE_SIZE * 3
       } else {
-        srcX = SPRITE_SIZE * 1
+        srcX = SPRITE_SIZE * 3
         if (progress < 0.33) srcY = SPRITE_SIZE * 0
         else if (progress < 0.33) srcY = SPRITE_SIZE * 1
         else srcY = SPRITE_SIZE * 2
