@@ -2,7 +2,7 @@ import Atom from '@avo/atom'
 import { TILE_SIZE, EXPECTED_TIMESTEP } from '@avo/constants'
 import { easeOut } from '@avo/misc'
 
-const FRAGILITY = 0.25
+const FRAGILITY = 0.15
 const DECAY_MAX = 500
 
 export default class Vase extends Atom {
