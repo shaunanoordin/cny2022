@@ -33,33 +33,30 @@ export default class Cat extends Atom {
 
     const c2d = this._app.canvas2d
     const camera = this._app.camera
-    const animationSpritesheet = this._app.assets.cny2022
+    const animationSpritesheet = this._app.assets.cat
 
     if (layer === 0) {
       c2d.fillStyle = this.colour
-      c2d.strokeStyle = '#444'
-      c2d.lineWidth = this.mass
 
-      // Draw shape outline
+      // Draw shadow
       c2d.beginPath()
       c2d.arc(Math.floor(this.x + camera.x), Math.floor(this.y + camera.y), this.size / 2, 0, 2 * Math.PI)
       c2d.closePath()
       c2d.fill()
-      // this.solid && c2d.stroke()
     } else if (layer === 1) {
       if (!animationSpritesheet) return
 
-      const SPRITE_SIZE = 48
+      const SPRITE_SIZE = 96
       let SPRITE_OFFSET_X = 0
-      let SPRITE_OFFSET_Y = -32
+      let SPRITE_OFFSET_Y = -48
 
       const srcSizeX = SPRITE_SIZE
       const srcSizeY = SPRITE_SIZE
       let srcX = 0
       let srcY = 0
 
-      const tgtSizeX = SPRITE_SIZE * 2.5
-      const tgtSizeY = SPRITE_SIZE * 2.5
+      const tgtSizeX = SPRITE_SIZE * 1.5
+      const tgtSizeY = SPRITE_SIZE * 1.5
       const tgtX = Math.floor(this.x + camera.x) - srcSizeX / 2 + SPRITE_OFFSET_X - (tgtSizeX - srcSizeX) / 2
       const tgtY = Math.floor(this.y + camera.y) - srcSizeY / 2 + SPRITE_OFFSET_Y - (tgtSizeY - srcSizeY) / 2
 
@@ -69,7 +66,6 @@ export default class Cat extends Atom {
       } else {
         srcY = (progress < 0.5) ? SPRITE_SIZE * 2 : SPRITE_SIZE * 3
       }
-
 
       c2d.drawImage(animationSpritesheet.img, Math.floor(srcX), Math.floor(srcY), Math.floor(srcSizeX), Math.floor(srcSizeY), Math.floor(tgtX), Math.floor(tgtY), Math.floor(tgtSizeX), Math.floor(tgtSizeY))
     }
