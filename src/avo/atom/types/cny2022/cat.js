@@ -43,7 +43,7 @@ export default class Cat extends Atom {
       c2d.arc(Math.floor(this.x + camera.x), Math.floor(this.y + camera.y), this.size / 2, 0, 2 * Math.PI)
       c2d.closePath()
       c2d.fill()
-    } else if (layer === 1) {
+    } else if (layer === 2) {
       if (!animationSpritesheet) return
 
       const SPRITE_SIZE = 96
