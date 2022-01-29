@@ -503,11 +503,13 @@ export default class AvO {
         break
 
       // DEBUG
+      /*
       case 'z':
         if (!this.interactionMenu) {
           this.setInteractionMenu(new Interaction(this))
         }
         break
+      */
     }
 
     // General input
