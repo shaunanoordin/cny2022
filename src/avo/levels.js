@@ -18,10 +18,19 @@ import ZeldaControls from '@avo/rule/types/zelda-controls'
 import CNY2022Controls from '@avo/rule/types/cny2022-controls'
 import CNY2022Victory from '@avo/rule/types/cny2022-victory'
 
+const CNY2022_HIGHSCORE_STORAGE_KEY = 'cny2022.highscores'
+
 export default class Levels {
   constructor (app) {
     this._app = app
     this.current = 0
+
+    this.cny2022LevelGenerators = [
+      this.generate_cny2022_level_1.bind(this),
+    ]
+    this.cny2022HighScores = this.cny2022LevelGenerators.map(() => undefined)
+
+    this.loadCNY2022HighScores()
   }
 
   reset () {
@@ -45,15 +54,41 @@ export default class Levels {
     // this.generate_cny2022_default()
     // this.generate_cny2022_level_1()
 
-    switch (level) {
-      case 1:
-        this.generate_cny2022_level_1()
-        break
+    if (this.cny2022LevelGenerators[level]) {
+      this.cny2022LevelGenerators[level]()
     }
   }
 
   reload () {
     this.load(this.current)
+  }
+
+  registerCNY2022Score (score) {
+    const highscore = this.cny2022HighScores[this.current]
+
+    if (highscore === undefined || highscore < score) {
+      this.cny2022HighScores[this.current] = score
+    }
+
+    this.saveCNY2022HighScores()
+  }
+
+  saveCNY2022HighScores () {
+    const storage = window?.localStorage
+    if (!storage) return
+    storage.setItem(CNY2022_HIGHSCORE_STORAGE_KEY, JSON.stringify(this.cny2022HighScores))
+  }
+
+  loadCNY2022HighScores () {
+    const storage = window?.localStorage
+    if (!storage) return
+    try {
+      const str = storage.getItem(CNY2022_HIGHSCORE_STORAGE_KEY)
+      this.cny2022HighScores = (str) ? JSON.parse(str) : []
+    } catch (err) {
+      this.cny2022HighScores = []
+      console.error(err)
+    }
   }
 
   /*

@@ -117,7 +117,7 @@ export default class CNY2022Victory extends Rule {
   triggerVictory () {
     if (this.victory) return  // Don't trigger more than once
 
-    const app = this._app
+    this._app.levels.registerCNY2022Score(this.score)
     this.victory = true
   }
 }

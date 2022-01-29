@@ -449,22 +449,29 @@ export default class AvO {
     }
   }
 
+  /*
+  Set up the level list of the
+   */
   updateCNY2022HomeMenu () {
     const levelsList = document.getElementById('levels-list')
     while (levelsList.firstChild) { levelsList.removeChild(levelsList.firstChild) }  // Clear
 
-    for (let lvl = 1 ; lvl <= 5; lvl ++) {
+    for (let levelIndex = 0 ; levelIndex < this.levels.cny2022LevelGenerators.length; levelIndex ++) {
+      const levelNumber = levelIndex + 1
       const li = document.createElement('li')
       const button = document.createElement('button')
       const span = document.createElement('span')
 
-      button.innerText = `Level ${lvl}`
+      button.innerText = `Level ${levelNumber}`
       button.addEventListener('click', () => {
-        this.levels.load(lvl)
+        this.levels.load(levelIndex)
         this.setHomeMenu(false)
       })
 
-      span.innerText = `New!`
+      const score = this.levels.cny2022HighScores[levelIndex]
+      span.innerText = (Number.isInteger(score))
+        ? `Score: ${score}`
+        : 'New!'
 
       li.appendChild(button)
       li.appendChild(span)
