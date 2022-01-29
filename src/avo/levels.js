@@ -27,6 +27,7 @@ export default class Levels {
 
     this.cny2022LevelGenerators = [
       this.generate_cny2022_level_1.bind(this),
+      this.generate_cny2022_level_2.bind(this),
     ]
     this.cny2022HighScores = this.cny2022LevelGenerators.map(() => undefined)
 
@@ -51,8 +52,6 @@ export default class Levels {
     this.current = level
 
     this.reset()
-    // this.generate_cny2022_default()
-    // this.generate_cny2022_level_1()
 
     if (this.cny2022LevelGenerators[level]) {
       this.cny2022LevelGenerators[level]()
@@ -131,6 +130,34 @@ export default class Levels {
   }
 
   generate_cny2022_level_1 () {
+    const app = this._app
+
+    const cat = new Cat(app, 3, (CNY2022_ROWS - 1) / 2)
+    const laserPointer = new LaserPointer(app, (CNY2022_COLS - 1) / 2, 3)
+    app.atoms.push(cat)
+    app.atoms.push(laserPointer)
+    app.addRule(new CNY2022Controls(app, cat, laserPointer))
+    app.addRule(new CNY2022Victory(app))
+
+    // Layout
+    app.atoms.push(new GlassWall(app, 11, 6, 18, 1))
+    app.atoms.push(new GlassWall(app, 11, 1, 1, 5))
+    app.atoms.push(new GlassWall(app, 28, 1, 1, 5))
+    app.atoms.push(new Wall(app, 11, 13, 18, 1))
+    app.atoms.push(new Goal(app, CNY2022_COLS - 3, (CNY2022_ROWS - 1) / 2))
+
+    // Coins
+    app.atoms.push(new Coin(app, 18, 11))
+    app.atoms.push(new Coin(app, 21, 11))
+    for (let i = 0 ; i < 4 ; i++) {
+      app.atoms.push(new Coin(app, 15 + i * 3, 15))
+      app.atoms.push(new Coin(app, 15 + i * 3, 17))
+    }
+
+    this.createOuterWalls()
+  }
+
+  generate_cny2022_level_2 () {
     const app = this._app
 
     const cat = new Cat(app, 3, (CNY2022_ROWS - 1) / 2)
