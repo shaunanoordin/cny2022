@@ -450,7 +450,7 @@ export default class AvO {
   }
 
   /*
-  Set up the level list of the
+  Set up the level list on the home menu.
    */
   updateCNY2022HomeMenu () {
     const levelsList = document.getElementById('levels-list')
