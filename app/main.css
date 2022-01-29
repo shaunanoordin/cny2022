@@ -105,7 +105,7 @@ table th {
   max-width: 50%;
   margin: 0 auto;
 }
-#app > main #home-menu #levels {
+#app > main #home-menu #levels-list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -114,7 +114,7 @@ table th {
   padding: 0;
   justify-content: space-around;
 }
-#app > main #home-menu #levels li {
+#app > main #home-menu #levels-list li {
   font-size: 1em;
   flex: 0 0 15%;
   margin: 0.5em;
@@ -124,7 +124,7 @@ table th {
   box-shadow: 0.1rem 0.1rem 0 rgba(0, 0, 0, 0.1);
   padding: 0.5em;
 }
-#app > main #home-menu #levels li button {
+#app > main #home-menu #levels-list li button {
   cursor: pointer;
   color: #fff;
   background: #c44;
@@ -132,13 +132,13 @@ table th {
   border-radius: 1rem;
   box-shadow: 0.1rem 0.1rem 0 rgba(0, 0, 0, 0.5);
 }
-#app > main #home-menu #levels li button:hover {
+#app > main #home-menu #levels-list li button:hover {
   border: 2px solid #fff;
 }
-#app > main #home-menu #levels li button:active {
+#app > main #home-menu #levels-list li button:active {
   border: 2px solid #888;
 }
-#app > main #home-menu #levels li span {
+#app > main #home-menu #levels-list li span {
   display: block;
   margin-top: 1em;
   font-size: 0.75em;

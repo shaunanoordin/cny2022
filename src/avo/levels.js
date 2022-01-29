@@ -43,7 +43,13 @@ export default class Levels {
 
     this.reset()
     // this.generate_cny2022_default()
-    this.generate_cny2022_level_1()
+    // this.generate_cny2022_level_1()
+
+    switch (level) {
+      case 1:
+        this.generate_cny2022_level_1()
+        break
+    }
   }
 
   reload () {

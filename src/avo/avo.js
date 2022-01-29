@@ -120,7 +120,8 @@ export default class AvO {
       // Let's go!
       this.initialised = true
       this.showUI()
-      this.levels.load(STARTING_LEVEL)
+      this.setHomeMenu(true)
+      // this.levels.load(STARTING_LEVEL)
     }
   }
 
@@ -440,10 +441,34 @@ export default class AvO {
     if (homeMenu) {
       this.html.homeMenu.style.visibility = 'visible'
       this.html.buttonReload.style.visibility = 'hidden'
+      this.updateCNY2022HomeMenu()
     } else {
       this.html.homeMenu.style.visibility = 'hidden'
       this.html.buttonReload.style.visibility = 'visible'
       this.html.main.focus()
+    }
+  }
+
+  updateCNY2022HomeMenu () {
+    const levelsList = document.getElementById('levels-list')
+    while (levelsList.firstChild) { levelsList.removeChild(levelsList.firstChild) }  // Clear
+
+    for (let lvl = 1 ; lvl <= 5; lvl ++) {
+      const li = document.createElement('li')
+      const button = document.createElement('button')
+      const span = document.createElement('span')
+
+      button.innerText = `Level ${lvl}`
+      button.addEventListener('click', () => {
+        this.levels.load(lvl)
+        this.setHomeMenu(false)
+      })
+
+      span.innerText = `New!`
+
+      li.appendChild(button)
+      li.appendChild(span)
+      levelsList.appendChild(li)
     }
   }
 
