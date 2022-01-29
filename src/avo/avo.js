@@ -120,7 +120,8 @@ export default class AvO {
       // Let's go!
       this.initialised = true
       this.showUI()
-      this.levels.load(STARTING_LEVEL)
+      this.setHomeMenu(true)
+      // this.levels.load(STARTING_LEVEL)
     }
   }
 
@@ -440,10 +441,41 @@ export default class AvO {
     if (homeMenu) {
       this.html.homeMenu.style.visibility = 'visible'
       this.html.buttonReload.style.visibility = 'hidden'
+      this.updateCNY2022HomeMenu()
     } else {
       this.html.homeMenu.style.visibility = 'hidden'
       this.html.buttonReload.style.visibility = 'visible'
       this.html.main.focus()
+    }
+  }
+
+  /*
+  Set up the level list on the home menu.
+   */
+  updateCNY2022HomeMenu () {
+    const levelsList = document.getElementById('levels-list')
+    while (levelsList.firstChild) { levelsList.removeChild(levelsList.firstChild) }  // Clear
+
+    for (let levelIndex = 0 ; levelIndex < this.levels.cny2022LevelGenerators.length; levelIndex ++) {
+      const levelNumber = levelIndex + 1
+      const li = document.createElement('li')
+      const button = document.createElement('button')
+      const span = document.createElement('span')
+
+      button.innerText = `Level ${levelNumber}`
+      button.addEventListener('click', () => {
+        this.levels.load(levelIndex)
+        this.setHomeMenu(false)
+      })
+
+      const score = this.levels.cny2022HighScores[levelIndex]
+      span.innerText = (Number.isInteger(score))
+        ? `Score: ${score}`
+        : 'New!'
+
+      li.appendChild(button)
+      li.appendChild(span)
+      levelsList.appendChild(li)
     }
   }
 
@@ -503,11 +535,13 @@ export default class AvO {
         break
 
       // DEBUG
+      /*
       case 'z':
         if (!this.interactionMenu) {
           this.setInteractionMenu(new Interaction(this))
         }
         break
+      */
     }
 
     // General input

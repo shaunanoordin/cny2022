@@ -3,6 +3,7 @@ import { TILE_SIZE } from '@avo/constants'
 import { easeOut } from '@avo/misc'
 
 const VICTORY_COUNTER_MAX = 500
+const RETURN_TO_HOME_MENU_COUNTER_MAX = 1500
 
 /*
 This Rule keeps track of scores and the victory condition.
@@ -17,8 +18,16 @@ export default class CNY2022Victory extends Rule {
     super(app)
     this._type = 'cny2022-victory'
 
+    // Once the player has finished the level, show the victory message over a
+    // period of time, and then pause the gameplay.
     this.victory = false  // bool: has the player finished the level?
     this.victoryCounter = 0
+
+    // Once the player has seen the victory message, wait a moment before
+    // opening the home menu. (The home menu should only be opened automatically
+    // ONCE.)
+    this.returnToHomeMenuCounter = 0
+    this.returnedToHomeMenu = false  // bool: has the home menu been opened?
 
     this.score = 0
   }
@@ -27,10 +36,25 @@ export default class CNY2022Victory extends Rule {
     const app = this._app
     super.play(timeStep)
 
+    // If the cat has reached the exit, run the victory phase.
     if (this.victory) {
       this.victoryCounter = Math.min(this.victoryCounter + timeStep, VICTORY_COUNTER_MAX)
 
-      if (this.victoryCounter >= VICTORY_COUNTER_MAX) app.paused = true
+      // Victory phase part 1: show the victory message over a period of time,
+      // and after that pause the game.
+      if (this.victoryCounter >= VICTORY_COUNTER_MAX) {
+        app.paused = true
+
+        this.returnToHomeMenuCounter = Math.min(this.returnToHomeMenuCounter + timeStep, RETURN_TO_HOME_MENU_COUNTER_MAX)
+
+        // Victory phase part 2: once the victory message has finished playing,
+        // wait a moment and then open the home menu again. Note that the home
+        // menu should only be opened automatically ONCE.
+        if (this.returnToHomeMenuCounter >= RETURN_TO_HOME_MENU_COUNTER_MAX && !this.returnedToHomeMenu) {
+          this.returnedToHomeMenu = true
+          app.setHomeMenu(true)
+        }
+      }
     }
   }
 
@@ -93,7 +117,7 @@ export default class CNY2022Victory extends Rule {
   triggerVictory () {
     if (this.victory) return  // Don't trigger more than once
 
-    const app = this._app
+    this._app.levels.registerCNY2022Score(this.score)
     this.victory = true
   }
 }

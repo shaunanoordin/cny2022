@@ -18,10 +18,20 @@ import ZeldaControls from '@avo/rule/types/zelda-controls'
 import CNY2022Controls from '@avo/rule/types/cny2022-controls'
 import CNY2022Victory from '@avo/rule/types/cny2022-victory'
 
+const CNY2022_HIGHSCORE_STORAGE_KEY = 'cny2022.highscores'
+
 export default class Levels {
   constructor (app) {
     this._app = app
     this.current = 0
+
+    this.cny2022LevelGenerators = [
+      this.generate_cny2022_level_1.bind(this),
+      this.generate_cny2022_level_2.bind(this),
+    ]
+    this.cny2022HighScores = this.cny2022LevelGenerators.map(() => undefined)
+
+    this.loadCNY2022HighScores()
   }
 
   reset () {
@@ -42,12 +52,42 @@ export default class Levels {
     this.current = level
 
     this.reset()
-    // this.generate_cny2022_default()
-    this.generate_cny2022_level_1()
+
+    if (this.cny2022LevelGenerators[level]) {
+      this.cny2022LevelGenerators[level]()
+    }
   }
 
   reload () {
     this.load(this.current)
+  }
+
+  registerCNY2022Score (score) {
+    const highscore = this.cny2022HighScores[this.current]
+
+    if (highscore === undefined || highscore < score) {
+      this.cny2022HighScores[this.current] = score
+    }
+
+    this.saveCNY2022HighScores()
+  }
+
+  saveCNY2022HighScores () {
+    const storage = window?.localStorage
+    if (!storage) return
+    storage.setItem(CNY2022_HIGHSCORE_STORAGE_KEY, JSON.stringify(this.cny2022HighScores))
+  }
+
+  loadCNY2022HighScores () {
+    const storage = window?.localStorage
+    if (!storage) return
+    try {
+      const str = storage.getItem(CNY2022_HIGHSCORE_STORAGE_KEY)
+      this.cny2022HighScores = (str) ? JSON.parse(str) : []
+    } catch (err) {
+      this.cny2022HighScores = []
+      console.error(err)
+    }
   }
 
   /*
@@ -90,6 +130,34 @@ export default class Levels {
   }
 
   generate_cny2022_level_1 () {
+    const app = this._app
+
+    const cat = new Cat(app, 3, (CNY2022_ROWS - 1) / 2)
+    const laserPointer = new LaserPointer(app, (CNY2022_COLS - 1) / 2, 3)
+    app.atoms.push(cat)
+    app.atoms.push(laserPointer)
+    app.addRule(new CNY2022Controls(app, cat, laserPointer))
+    app.addRule(new CNY2022Victory(app))
+
+    // Layout
+    app.atoms.push(new GlassWall(app, 11, 6, 18, 1))
+    app.atoms.push(new GlassWall(app, 11, 1, 1, 5))
+    app.atoms.push(new GlassWall(app, 28, 1, 1, 5))
+    app.atoms.push(new Wall(app, 11, 13, 18, 1))
+    app.atoms.push(new Goal(app, CNY2022_COLS - 3, (CNY2022_ROWS - 1) / 2))
+
+    // Coins
+    app.atoms.push(new Coin(app, 18, 11))
+    app.atoms.push(new Coin(app, 21, 11))
+    for (let i = 0 ; i < 4 ; i++) {
+      app.atoms.push(new Coin(app, 15 + i * 3, 15))
+      app.atoms.push(new Coin(app, 15 + i * 3, 17))
+    }
+
+    this.createOuterWalls()
+  }
+
+  generate_cny2022_level_2 () {
     const app = this._app
 
     const cat = new Cat(app, 3, (CNY2022_ROWS - 1) / 2)
