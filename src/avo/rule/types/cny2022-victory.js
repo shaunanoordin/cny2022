@@ -30,6 +30,7 @@ export default class CNY2022Victory extends Rule {
     this.returnedToHomeMenu = false  // bool: has the home menu been opened?
 
     this.score = 0
+    this.victoryScore = 0
   }
 
   play (timeStep) {
@@ -71,9 +72,11 @@ export default class CNY2022Victory extends Rule {
 
     // Victory message
     if (this.victory) {
-      const VICTORY_TEXT = 'YOU DID IT!'
+      const VICTORY_TEXT = `YOU DID IT!`
+      const SCORE_TEXT = `${this.victoryScore} point${(this.victoryScore === 1)? '' : 's'}`
       const VICTORY_X = app.canvasWidth / 2
-      const VICTORY_Y = app.canvasHeight / 2
+      const VICTORY_Y = app.canvasHeight / 2 - TILE_SIZE * 0.5
+      const SCORE_Y = app.canvasHeight / 2 + TILE_SIZE * 0.5
       const VICTORY_SIZE_START = 5
       const VICTORY_SIZE_END = 10
 
@@ -86,14 +89,19 @@ export default class CNY2022Victory extends Rule {
       c2d.fillStyle = `rgba(128, 128, 128, ${blockOpacity})`
       c2d.fillRect(0, 0, app.canvasWidth, app.canvasHeight)
 
-      c2d.font = `${textSize}em Source Code Pro`
+      c2d.font = `${textSize}em sans-serif`
       c2d.textAlign = 'center'
-      c2d.textBaseline = 'middle'
       c2d.lineWidth = 8
       c2d.strokeStyle = '#eee'
-      c2d.strokeText(VICTORY_TEXT, VICTORY_X, VICTORY_Y)
       c2d.fillStyle = '#c44'
+
+      c2d.textBaseline = 'bottom'
+      c2d.strokeText(VICTORY_TEXT, VICTORY_X, VICTORY_Y)
       c2d.fillText(VICTORY_TEXT, VICTORY_X, VICTORY_Y)
+
+      c2d.textBaseline = 'top'
+      c2d.strokeText(SCORE_TEXT, VICTORY_X, SCORE_Y)
+      c2d.fillText(SCORE_TEXT, VICTORY_X, SCORE_Y)
     }
 
     // Score
@@ -119,5 +127,6 @@ export default class CNY2022Victory extends Rule {
 
     this._app.levels.registerCNY2022Score(this.score)
     this.victory = true
+    this.victoryScore = this.score
   }
 }
