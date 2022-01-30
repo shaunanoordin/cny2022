@@ -29,6 +29,7 @@ export default class Levels {
     this.cny2022LevelGenerators = [
       this.generate_cny2022_level_1.bind(this),
       this.generate_cny2022_level_2.bind(this),
+      this.generate_cny2022_level_3.bind(this),
     ]
     this.cny2022HighScores = this.cny2022LevelGenerators.map(() => undefined)
 
@@ -211,6 +212,52 @@ export default class Levels {
     app.atoms.push(hint1, hint2)
 
     this.createOuterWalls()
+  }
+
+  generate_cny2022_level_3 () {
+    const app = this._app
+
+    const cat = new Cat(app, 3, (CNY2022_ROWS - 1) / 2)
+    const laserPointer = new LaserPointer(app, (CNY2022_COLS - 1) / 2, 6.5)
+    app.atoms.push(cat)
+    app.atoms.push(laserPointer)
+    app.addRule(new CNY2022Controls(app, cat, laserPointer))
+    app.addRule(new CNY2022Victory(app))
+
+    // Layout
+    this.createOuterWalls()
+    app.atoms.push(new Wall(app, 1, 1, 3, 3, 'se'))  // North triangle
+    app.atoms.push(new Wall(app, 36, 1, 3, 3, 'sw'))  // North triangle
+    app.atoms.push(new Wall(app, 5, 5, 30, 1))  // North wall
+
+    app.atoms.push(new GlassWall(app, 17, 6, 1, 2))  // Glass cage
+    app.atoms.push(new GlassWall(app, 22, 6, 1, 2))  // Glass cage
+    app.atoms.push(new GlassWall(app, 17, 8, 6, 1))  // Glass cage
+
+    app.atoms.push(new Wall(app, 10, 14, 8, 1))  // South wall
+    app.atoms.push(new Wall(app, 22, 14, 8, 1))  // South wall
+    app.atoms.push(new Wall(app, 18, 12, 4, 1))  // South wall
+    app.atoms.push(new Wall(app, 17, 12, 1, 2))  // South wall
+    app.atoms.push(new Wall(app, 22, 12, 1, 2))  // South wall
+    app.atoms.push(new Wall(app, 5, 14, 5, 5, 'nw'))
+    app.atoms.push(new Goal(app, 19.5, 13.5))
+
+    // Coins
+    for (let i = 0 ; i < 6 ; i ++ ) {
+      app.atoms.push(new Coin(app, 9.5 + i * 4, 2.5))
+    }
+    app.atoms.push(new Coin(app, 2.5, 16.5))
+    app.atoms.push(new Coin(app, 11.5, 16.5))
+    app.atoms.push(new Coin(app, 27.5, 16.5))
+    app.atoms.push(new Coin(app, 36.5, 16.5))
+
+    // Vases
+    app.atoms.push(new Vase(app, 8, 9))
+    app.atoms.push(new Vase(app, 12, 9))
+    app.atoms.push(new Vase(app, 27, 9))
+    app.atoms.push(new Vase(app, 31, 9))
+    app.atoms.push(new Vase(app, 10, 12))
+    app.atoms.push(new Vase(app, 29, 12))
   }
 
   createOuterWalls () {
