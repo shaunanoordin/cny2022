@@ -264,7 +264,7 @@ export default class Levels {
   generate_cny2022_level_4 () {
     const app = this._app
 
-    const cat = new Cat(app, 2, 17)
+    const cat = new Cat(app, 19.5, 17)
     const laserPointer = new LaserPointer(app, 19.5, 1.5)
     // const laserPointer = new LaserPointer(app, 37.5, 1.5)
     app.atoms.push(cat)
@@ -275,18 +275,21 @@ export default class Levels {
     // Layout
     this.createOuterWalls()
     app.atoms.push(new GlassWall(app, 4, 3, 35, 1))  // North wall
-    // app.atoms.push(new GlassWall(app, 32, 4, 1, 1))  // East wall 1
-    app.atoms.push(new Wall(app, 32, 4, 1, 9))  // East wall 2
-    app.atoms.push(new GlassWall(app, 32, 16, 1, 3))  // East wall 3
+    app.atoms.push(new Wall(app, 32, 4, 1, 9))  // East wall
     app.atoms.push(new GlassWall(app, 33, 6, 4, 1))  // East maze 1
     app.atoms.push(new GlassWall(app, 35, 9, 4, 1))  // East maze 2
     app.atoms.push(new GlassWall(app, 33, 12, 4, 1))  // East maze 3
     app.atoms.push(new Goal(app, 35.5, 17))
+    app.atoms.push(new GlassWall(app, 4, 6, 1, 11))  // West wall 3
 
     // Coins
     app.atoms.push(new Coin(app, 35.5, 4.5))
     app.atoms.push(new Coin(app, 35.5, 7.5))
     app.atoms.push(new Coin(app, 35.5, 10.5))
+
+    // Vases
+    app.atoms.push(new Vase(app, 32, 16))
+    app.atoms.push(new Vase(app, 32, 18))
   }
 
   createOuterWalls () {
