@@ -271,25 +271,43 @@ export default class Levels {
     app.atoms.push(laserPointer)
     app.addRule(new CNY2022Controls(app, cat, laserPointer))
     app.addRule(new CNY2022Victory(app))
-
-    // Layout
     this.createOuterWalls()
-    app.atoms.push(new GlassWall(app, 4, 3, 35, 1))  // North wall
+
+    // North Wall
+    app.atoms.push(new GlassWall(app, 4, 3, 35, 1))
+
+    // West Wall
+    app.atoms.push(new GlassWall(app, 4, 7, 1, 9))
+    app.atoms.push(new Coin(app, 2, 11))
+
+    // Eastern Maze
     app.atoms.push(new Wall(app, 32, 4, 1, 9))  // East wall
+    app.atoms.push(new GlassWall(app, 32, 16, 1, 3))  // East wall
     app.atoms.push(new GlassWall(app, 33, 6, 4, 1))  // East maze 1
     app.atoms.push(new GlassWall(app, 35, 9, 4, 1))  // East maze 2
     app.atoms.push(new GlassWall(app, 33, 12, 4, 1))  // East maze 3
     app.atoms.push(new Goal(app, 35.5, 17))
-    app.atoms.push(new GlassWall(app, 4, 6, 1, 11))  // West wall 3
-
-    // Coins
     app.atoms.push(new Coin(app, 35.5, 4.5))
     app.atoms.push(new Coin(app, 35.5, 7.5))
     app.atoms.push(new Coin(app, 35.5, 10.5))
 
-    // Vases
-    app.atoms.push(new Vase(app, 32, 16))
-    app.atoms.push(new Vase(app, 32, 18))
+    // Middle maze
+    app.atoms.push(new GlassWall(app, 8, 7, 9, 1))
+    app.atoms.push(new GlassWall(app, 8, 11, 9, 1))
+    app.atoms.push(new GlassWall(app, 8, 15, 9, 1))
+    app.atoms.push(new GlassWall(app, 23, 9, 5, 1))
+    app.atoms.push(new GlassWall(app, 23, 13, 5, 1))
+    app.atoms.push(new Vase(app, 18, 7))
+    app.atoms.push(new Vase(app, 18, 11))
+    app.atoms.push(new Vase(app, 18, 15))
+    app.atoms.push(new Vase(app, 21, 9))
+    app.atoms.push(new Vase(app, 21, 13))
+    app.atoms.push(new Coin(app, 12, 5))
+    app.atoms.push(new Coin(app, 12, 9))
+    app.atoms.push(new Coin(app, 12, 13))
+    app.atoms.push(new Coin(app, 25, 7))
+    app.atoms.push(new Coin(app, 25, 11))
+    app.atoms.push(new Coin(app, 25, 15))
   }
 
   createOuterWalls () {
