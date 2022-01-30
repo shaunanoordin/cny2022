@@ -6,6 +6,7 @@ import Hero from '@avo/atom/types/hero'
 import Wall from '@avo/atom/types/wall'
 import Ball from '@avo/atom/types/ball'
 import Enemy from '@avo/atom/types/enemy'
+import TextMessage from '@avo/atom/types/text-message'
 
 import Cat from '@avo/atom/types/cny2022/cat'
 import LaserPointer from '@avo/atom/types/cny2022/laser-pointer'
@@ -154,6 +155,14 @@ export default class Levels {
       app.atoms.push(new Coin(app, 15 + i * 3, 17))
     }
 
+    // Hints
+    const hint1 = new TextMessage(app, '👆 Tap or click to aim laser', 19.5, 9, 0)
+    const hint2 = new TextMessage(app, 'Get tiger to goal 🐅⬇️', 37.5, 7.5, 0)
+    hint2.textAlign = 'right'
+    const hint3 = new TextMessage(app, 'Coins add to your score ➡️', 2, 16, 0)
+    hint3.textAlign = 'left'
+    app.atoms.push(hint1, hint2, hint3)
+
     this.createOuterWalls()
   }
 
@@ -188,11 +197,15 @@ export default class Levels {
     app.atoms.push(new Coin(app, 6.5, 17.5))
 
     // Vases
-    app.atoms.push(new Vase(app, 13.5, 9.5))
-    app.atoms.push(new Vase(app, 16.5, 9.5))
-    app.atoms.push(new Vase(app, 19.5, 9.5))
-    app.atoms.push(new Vase(app, 22.5, 9.5))
-    app.atoms.push(new Vase(app, 25.5, 9.5))
+    for (let i = 0 ; i < 5 ; i ++ ) {
+      app.atoms.push(new Vase(app, 13.5 + i * 3, 8.5))
+    }
+    for (let i = 0 ; i < 3 ; i ++ ) {
+      app.atoms.push(new Vase(app, 16.5 + i * 3, 11.5))
+    }
+
+    // Hints
+    app.atoms.push(new TextMessage(app, '⬆️ Don\'t break vases!', 19.5, 13.5, 0))
 
     this.createOuterWalls()
   }
