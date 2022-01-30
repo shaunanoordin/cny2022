@@ -159,7 +159,7 @@ export default class Levels {
     const hint1 = new TextMessage(app, '👆 Tap or click to aim laser', 19.5, 9, 0)
     const hint2 = new TextMessage(app, 'Get tiger to goal 🐅⬇️', 37.5, 7.5, 0)
     hint2.textAlign = 'right'
-    const hint3 = new TextMessage(app, 'Coins add to your score ➡️', 2, 16, 0)
+    const hint3 = new TextMessage(app, 'Coins add to score ➡️', 2, 16, 0)
     hint3.textAlign = 'left'
     app.atoms.push(hint1, hint2, hint3)
 
@@ -205,7 +205,10 @@ export default class Levels {
     }
 
     // Hints
-    app.atoms.push(new TextMessage(app, '⬆️ Don\'t break vases!', 19.5, 13.5, 0))
+    const hint1 = new TextMessage(app, '⬆️ Don\'t break vases!', 19.5, 13.5, 0)
+    const hint2 = new TextMessage(app, 'Walls block lasers', 19.5, 6, 2)
+    hint2.colour = 'rgba(255, 255, 255, 0.8)'
+    app.atoms.push(hint1, hint2)
 
     this.createOuterWalls()
   }
