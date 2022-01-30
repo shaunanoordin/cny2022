@@ -13,6 +13,7 @@ export default class Vase extends Atom {
     this.colour = 'rgba(32, 32, 64, 0.5)'
     this.solid = true
     this.movable = true
+    this.transparent = true
     this.x = col * TILE_SIZE + TILE_SIZE / 2
     this.y = row * TILE_SIZE + TILE_SIZE / 2
 

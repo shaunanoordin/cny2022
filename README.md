@@ -3,9 +3,11 @@
 This is a Chinese New Year greeting card and mini video game for the Year of the
 Tiger. Gong Xi Fa Cai, everyone!
 
-Original code was based on [AvO Adventure Mk3](https://github.com/shaunanoordin/avo-adventure-mk3).
+Play it online at [shaunanoordin.github.io/cny2022](https://shaunanoordin.github.io/cny2022/)
+or [shaunanoordin.com/cny2022](https://shaunanoordin.com/cny2022/)
 
-Created by [Shaun A. Noordin](https://shaunanoordin.com).
+Created by [Shaun A. Noordin](https://shaunanoordin.com). Original code based on
+[AvO Adventure Mk3](https://github.com/shaunanoordin/avo-adventure-mk3).
 
 ## How to Use
 
