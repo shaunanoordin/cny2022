@@ -29,9 +29,9 @@ export default class Levels {
     this.cny2022LevelGenerators = [
       this.generate_cny2022_level_1.bind(this),
       this.generate_cny2022_level_2.bind(this),
-      this.generate_cny2022_level_3.bind(this),
       this.generate_cny2022_level_4.bind(this),
       this.generate_cny2022_level_5.bind(this),
+      this.generate_cny2022_level_3.bind(this),  // TNC reported that this trick level is the hardest, so this goes last.
     ]
     this.cny2022HighScores = this.cny2022LevelGenerators.map(() => undefined)
 
