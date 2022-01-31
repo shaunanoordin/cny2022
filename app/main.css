@@ -66,6 +66,35 @@ table th {
   text-decoration: underline;
 }
 
+#app > #orientation-info {
+  position: fixed;
+  bottom: 2em;
+  left: 5%;
+  width: 90%;
+  padding: 1em;
+  background: #eee;
+  color: #444;
+  border: 2px solid #444;
+  display: none;
+}
+#app > #orientation-info.portrait {
+  display: block;
+}
+#app > #orientation-info > button {
+  cursor: pointer;
+  color: #fff;
+  background: #c44;
+  border: 2px solid #ccc;
+  border-radius: 1rem;
+  box-shadow: 0.1rem 0.1rem 0 rgba(0, 0, 0, 0.5);
+}
+#app > #orientation-info > button:hover {
+  border: 2px solid #fff;
+}
+#app > #orientation-info > button:active {
+  border: 2px solid #888;
+}
+
 #app > main {
   background: #444 url("../assets/simple-bg.png");
   display: flex;

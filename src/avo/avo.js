@@ -31,6 +31,8 @@ export default class AvO {
       buttonHome: document.getElementById('button-home'),
       buttonFullscreen: document.getElementById('button-fullscreen'),
       buttonReload: document.getElementById('button-reload'),
+      orientationInfo: document.getElementById('orientation-info'),
+      orientationClose: document.getElementById('orientation-close'),
     }
 
     this.homeMenu = false
@@ -399,6 +401,7 @@ export default class AvO {
     this.html.buttonHome.addEventListener('click', this.buttonHome_onClick.bind(this))
     this.html.buttonFullscreen.addEventListener('click', this.buttonFullscreen_onClick.bind(this))
     this.html.buttonReload.addEventListener('click', this.buttonReload_onClick.bind(this))
+    this.html.orientationClose.addEventListener('click', this.orientationClose_onClick.bind(this))
 
     this.html.main.addEventListener('keydown', this.onKeyDown.bind(this))
     this.html.main.addEventListener('keyup', this.onKeyUp.bind(this))
@@ -434,6 +437,14 @@ export default class AvO {
     this.html.interactionMenu.style.height = `${canvasBounds.height}px`
     this.html.interactionMenu.style.top = `${canvasBounds.top - mainDivBounds.top}px`
     this.html.interactionMenu.style.left = `${canvasBounds.left}px`
+
+    // Show or hide the orientation info
+    const width = mainDivBounds?.width || 1
+    const height = mainDivBounds?.height || 1
+    const screenRatio = width / height
+    this.html.orientationInfo.className = (screenRatio < 1)
+      ? 'portrait'
+      : ''
   }
 
   setHomeMenu (homeMenu) {
@@ -577,6 +588,10 @@ export default class AvO {
 
   buttonReload_onClick () {
     this.levels.reload()
+  }
+
+  orientationClose_onClick () {
+    this.html.orientationInfo.style.visibility = 'hidden'
   }
 
   /*
