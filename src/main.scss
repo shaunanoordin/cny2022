@@ -82,6 +82,39 @@ table {
   }
 }
 
+#app > #orientation-info {
+  position: fixed;
+  bottom: 2em;
+  left: 5%;
+  width: 90%;
+  padding: 1em;
+  background: $light;
+  color: $dark;
+  border: 2px solid $dark;
+  display: none;
+
+  &.portrait {
+    display: block;
+  }
+
+  > button {
+    cursor: pointer;
+    color: #fff;
+    background: #c44;
+    border: 2px solid #ccc;
+    border-radius: 1rem;
+    box-shadow: 0.1rem 0.1rem 0 rgba(0, 0, 0, 0.5);
+
+    &:hover {
+      border: 2px solid #fff;
+    }
+
+    &:active {
+      border: 2px solid #888;
+    }
+  }
+}
+
 #app > main {
   background: $dark url("../assets/simple-bg.png");
   display: flex;
