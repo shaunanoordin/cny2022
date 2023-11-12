@@ -3,6 +3,7 @@ import {
   PLAYER_ACTIONS, SHAPES,
   ACCEPTABLE_INPUT_DISTANCE_FROM_HERO,
   MAX_PULL_DISTANCE,
+  EXPECTED_TIMESTEP,
 } from '@avo/constants'
 import Physics from '@avo/physics'
 import Levels from '@avo/levels'
@@ -81,6 +82,7 @@ export default class AvO {
       keysPressed: {},
     }
 
+    this.timeAccumulator = 0
     this.prevTime = null
     this.nextFrame = window.requestAnimationFrame(this.main.bind(this))
     this.paused = false  // Pause gameplay
@@ -135,9 +137,15 @@ export default class AvO {
   main (time) {
     const timeStep = (this.prevTime) ? time - this.prevTime : time
     this.prevTime = time
+    this.timeAccumulator += timeStep
 
     if (this.initialised) {
-      this.play(timeStep)
+      // Keep a consistent "frame rate" for logic processing
+      while (this.timeAccumulator >= EXPECTED_TIMESTEP) {
+        this.play(EXPECTED_TIMESTEP)
+        this.timeAccumulator -= EXPECTED_TIMESTEP
+      }
+      // Paint whenever possible
       this.paint()
     } else {
       this.initialisationCheck()
